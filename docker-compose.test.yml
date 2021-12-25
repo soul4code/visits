@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+    db:
+        container_name: visits_test_db
+        image: postgis/postgis:latest
+        hostname: visits_db
+        ports:
+            - ${TEST_POSTGRES_PORT}:5432
+        restart: unless-stopped
+        env_file:
+            - .env
+        networks:
+            - webnet
+
+networks:
+  webnet:

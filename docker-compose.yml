@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+    backend:
+        hostname: backend
+        restart: unless-stopped
+        build:
+            context: .
+            dockerfile: ./docker/Dockerfile
+        entrypoint: /app/docker/wsgi-entrypoint.sh
+        env_file:
+            - .env
+        ports:
+            - 8000:8000
+        links:
+            - db:db
+        depends_on:
+            - db
+        networks:
+            - webnet
+    db:
+        container_name: visits_db
+        image: postgis/postgis:latest
+        hostname: visits_db
+        restart: unless-stopped
+        env_file:
+            - .env
+        networks:
+            - webnet
+
+networks:
+  webnet:

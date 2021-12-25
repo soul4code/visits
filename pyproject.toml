@@ -1,0 +1,34 @@
+[tool.poetry]
+name = "visits"
+version = "0.1.0"
+description = ""
+authors = ["Anton Lisenkov <soul4code@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+Django = "4.0"
+phonenumbers = "^8.12.39"
+django-phonenumber-field = "^6.0.0"
+djangorestframework = "^3.13.1"
+psycopg2 = "^2.9.2"
+python-dotenv = "^0.19.2"
+djangorestframework-gis = {git = "https://github.com/openwisp/django-rest-framework-gis.git", rev = "master"}
+
+[tool.poetry.dev-dependencies]
+gunicorn = "^20.1.0"
+ipython = "^7.30.1"
+pytest = "^6.2.5"
+coverage = "^6.2"
+pytest-cov = "^3.0.0"
+pytest-django = "^4.5.2"
+pytest-env = "^0.6.2"
+pytest-dotenv = "^0.5.2"
+pytest-docker = "^0.10.3"
+flake8 = "^4.0.1"
+isort = "^5.10.1"
+mypy = "^0.930"
+doc8 = "^0.10.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

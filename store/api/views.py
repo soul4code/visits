@@ -1,11 +1,8 @@
-from rest_framework import mixins, status
-from rest_framework.generics import CreateAPIView
-from rest_framework.response import Response
-from rest_framework.viewsets import GenericViewSet
+from rest_framework import mixins
 from rest_framework.permissions import IsAuthenticated
-
+from rest_framework.viewsets import GenericViewSet
 from store.api.serializers import StoreSerializer, VisitSerializer
-from store.models import Store
+from store.models import Store, Visit
 
 
 class StoreViewSet(GenericViewSet, mixins.ListModelMixin):
@@ -16,11 +13,9 @@ class StoreViewSet(GenericViewSet, mixins.ListModelMixin):
         return Store.objects.filter(employee__phone=self.request.auth)
 
 
-class VisitView(CreateAPIView):
+class VisitViewSet(GenericViewSet, mixins.CreateModelMixin):
+    serializer_class = VisitSerializer
     permission_classes = [IsAuthenticated]
 
-    def post(self, request, *args, **kwargs):
-        serializer = VisitSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    def get_queryset(self):
+        return Visit.objects.filter(store__employee__phone=self.request.auth)

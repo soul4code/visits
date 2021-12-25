@@ -1,13 +1,12 @@
 from rest_framework import serializers
-
 from store.api.fields import GeoPointField
-from store.models import Store, Employee, Visit
+from store.models import Employee, Store, Visit
 
 
 class EmployeeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employee
-        fields = ('id', 'name')
+        fields = ("id", "name")
 
 
 class StoreSerializer(serializers.ModelSerializer):
@@ -16,7 +15,7 @@ class StoreSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Store
-        fields = ('id', 'name', 'employee')
+        fields = ("id", "name", "employee")
 
 
 class VisitSerializer(serializers.ModelSerializer):
@@ -25,5 +24,5 @@ class VisitSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Visit
-        fields = ('id', 'date', 'store', 'coordinates')
-        read_only_fields = ('date',)
+        fields = ("id", "date", "store", "coordinates")
+        read_only_fields = ("date",)

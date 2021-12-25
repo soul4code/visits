@@ -16,15 +16,14 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path, include
-
+from django.urls import include, path
 from store.api.router import urlpatterns as store_urls
 
 api_urlpatterns = store_urls
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/', include((api_urlpatterns, 'visits'), namespace='api')),
+    path("admin/", admin.site.urls),
+    path("api/", include((api_urlpatterns, "visits"), namespace="api")),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

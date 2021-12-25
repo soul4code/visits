@@ -1,0 +1,46 @@
+---
+repos:
+
+  - repo: local
+    hooks:
+      - id: mypy
+        name: mypy
+        entry: mypy
+        language: python
+        types: [python]
+        stages: [commit]
+        pass_filenames: true
+        args: ['--config-file=setup.cfg']
+      - id: black
+        name: black
+        entry: black
+        language: python
+        types: [python]
+        stages: [commit]
+        pass_filenames: true
+        args: ['--config=pyproject.toml']
+      - id: isort
+        name: isort
+        entry: isort
+        language: python
+        types: [python]
+        stages: [commit]
+        require_serial: false
+        pass_filenames: true
+      - id: flake8
+        name: flake8
+        entry: flake8
+        language: python
+        types: [python]
+        stages: [commit]
+        pass_filenames: true
+        args: ['--config=setup.cfg']
+      - id: xenon
+        name: xenon
+        entry: xenon -e *tests/* --max-absolute B --max-modules A --max-average A server
+        pass_filenames: false
+        language: python
+        types: [python]
+        stages: [commit]
+default_language_version:
+  python: python3.9

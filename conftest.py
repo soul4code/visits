@@ -19,9 +19,9 @@ def pytest_configure():
     settings.DEBUG = True
 
 
-def db_is_responsive(docker_ip):
+def db_is_responsive(docker_ip) -> bool:
     try:
-        conn_settings = settings.DATABASES['default']
+        conn_settings = settings.DATABASES["default"]
         conn = psycopg2.connect(
             f"dbname='{conn_settings['NAME']}' "
             f"user='{conn_settings['USER']}' "
@@ -43,14 +43,14 @@ def db_service(docker_ip, docker_services):
     docker_services.wait_until_responsive(
         timeout=30.0, pause=0.1, check=lambda: db_is_responsive(docker_ip)
     )
-    settings.DATABASES['default']['HOST'] = docker_ip
-    settings.DATABASES['default']['PORT'] = os.environ.get('TEST_POSTGRES_PORT')
+    settings.DATABASES["default"]["HOST"] = docker_ip
+    settings.DATABASES["default"]["PORT"] = os.environ.get("TEST_POSTGRES_PORT")
     return
 
 
 @pytest.fixture
 def default_users(db):
-    call_command('defaultuser_create')
+    call_command("defaultuser_create")
 
 
 @pytest.fixture(scope="session")

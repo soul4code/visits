@@ -1,8 +1,7 @@
 import pytest
 from django.test import RequestFactory
 from django.urls import reverse
-
-from store.api.serializers import StoreSerializer, EmployeeSerializer, VisitSerializer
+from store.api.serializers import EmployeeSerializer, StoreSerializer, VisitSerializer
 
 
 @pytest.mark.django_db
@@ -16,11 +15,7 @@ def test_store_serializer_enough_fields(db_service):
     request = rf.get(url)
     serializer = StoreSerializer(context={"request": request})
 
-    assert set(serializer.fields.keys()) == {
-        "id",
-        "name",
-        "employee"
-    }
+    assert set(serializer.fields.keys()) == {"id", "name", "employee"}
 
 
 @pytest.mark.django_db
@@ -41,9 +36,4 @@ def test_visit_serializer_enough_fields(db_service):
 
     serializer = VisitSerializer()
 
-    assert set(serializer.fields.keys()) == {
-        "id",
-        "date",
-        "store",
-        "coordinates"
-    }
+    assert set(serializer.fields.keys()) == {"id", "date", "store", "coordinates"}
